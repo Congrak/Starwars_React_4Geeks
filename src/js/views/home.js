@@ -1,15 +1,41 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import "../../styles/demo.css";
+import { get_characters, get_planets } from "../services/swapi";
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+export const Home = () => {
+
+	let [characters, setCharacters] = useState()
+
+	useEffect(() => {
+		async function set() {
+			let charactersInfo = await get_characters()
+			setCharacters(charactersInfo)
+			//console.log(charactersInfo)
+		}
+		set()
+	}, [])
+	return (
+		<div>
+			{characters?.map((character) => {
+				console.log(character)
+				return (
+					<div>
+						<h1>{character.name}</h1>
+						<Link to={'/character/'+character.uid}>learn more</Link>
+					</div>
+				)
+			})}
+		</div>
+	)
+
+	//Optional chaining is using "?." instead of "." to try to access something 
+	//like "properties" above that sometimes wont exist
+	//if (!info) {
+	//return <h1>waiting for api call</h1>
+	//}
+	//return (
+	//<h1>{info.properties.name</h1>
+	//);
+};
