@@ -1,0 +1,31 @@
+.characterWrapper {
+    margin: 50px;
+}
+.head {
+    display: flex;
+    flex-direction: row;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 2px solid red;
+}
+
+.character {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
