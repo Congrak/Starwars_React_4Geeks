@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
 import { get_characters, get_planets } from "../services/swapi";
+import { Nav } from "../componets/Nav";
 
 
 export const Home = () => {
@@ -24,44 +25,32 @@ export const Home = () => {
 	console.log(favorite)
 	return (
 		<div className="body">
-			<div className="nav">
-				<div className="imgDiv">
-					<img className="logo" src="https://1000logos.net/wp-content/uploads/2017/06/Star-Wars-Logo-1.png" alt="logo" />
-				</div>
-				<div class="dropdown">
-					<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Favorites
-					</button>
-					<ul className="dropdown-menu">
-						{favorite.map((list , index) =>{
-							list = [...favorite]
-							console.log(list, 'list')
-							return (
-								<li key={index}>{list}</li>
-							)
-						})}
-					</ul>
-				</div>
-			</div>
+			<Nav favorite={favorite} setFavorite={setFavorite}/>
 			<div className="wrapper">
 				{characters?.map((character) => {
 					//console.log(character)
 					return (
 						<div className="card" key={character.uid}>
 							<img src="https://via.placeholder.com/200" />
-							<h6 className="title">{character.name}</h6>
-							<div className="btn-div">
-								<button className="btn">
-									<Link to={'/character/' + character.uid}>Learn More</Link>
-								</button>
-								<button className="like" onClick={
-									() => characters?.map(characterName => {
-										characterName = [...favorite]
-										if (!characterName.includes(character.name)) {
-											characterName.push(character.name)
-											setFavorite(characterName)
-										}
-									})}>like</button>
+							<div className="information">
+								<h6 className="title">{character.name}</h6>
+								<div className="btn-div">
+									<button className="btn">
+										<Link to={'/character/' + character.uid}>Learn More</Link>
+									</button>
+									<button className="like" onClick={
+										() => {
+											let characterName = [...favorite]
+											if (!characterName.includes(character.name)) {
+												characterName.push(character.name)
+												setFavorite(characterName)
+											}
+										}}>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+											<path className='heart' d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+										</svg>
+									</button>
+								</div>
 							</div>
 						</div>
 					)
@@ -73,12 +62,25 @@ export const Home = () => {
 					return (
 						<div className="card" key={planet.uid}>
 							<img src="https://via.placeholder.com/200" />
-							<h6 className="title">{planet.name}</h6>
-							<div className="btns-div">
-								<button className="btn">
-									<Link to={'/planet/' + planet.uid}>Learn More</Link>
-								</button>
-								<button className="like">like</button>
+							<div className="information">
+								<h6 className="title">{planet.name}</h6>
+								<div className="btns-div">
+									<button className="btn">
+										<Link to={'/planet/' + planet.uid}>Learn More</Link>
+									</button>
+									<button className="like" onClick={
+										() => {
+											let planetName = [...favorite]
+											if (!planetName.includes(planet.name)) {
+												planetName.push(planet.name)
+												setFavorite(planetName)
+											}
+										}}>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+											<path className='heart' d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+										</svg>
+									</button>
+								</div>
 							</div>
 						</div>
 					)

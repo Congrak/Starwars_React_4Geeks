@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import "../../styles/character.css";
 import { get_character } from "../services/swapi";
+import { Nav } from "../componets/Nav";
+import { Home } from "./home";
 
 export const Character = () => {
 
 	let [info, setInfo] = useState()
 	let { characterId } = useParams()
+	let [favorite, setFavorite] = useState([])
 
 	useEffect(() => {
 		async function set() {
@@ -18,6 +22,10 @@ export const Character = () => {
 	}, [])
 	return (
 		<div className="characterWrapper">
+			<Nav favorite={favorite} setFavorite={setFavorite} />
+			<div className="back" type='button'>
+				<Link to={'/'}>Home</Link>
+				</div>
 			<div className="head">
 				<img src='https://via.placeholder.com/600x400' />
 				<div className="description">
